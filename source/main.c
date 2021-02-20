@@ -26,7 +26,7 @@ unsigned char GetBit(unsigned char port, unsigned char number)
 //unsigned char KEYPADPORT;
 
 unsigned char GetKeypadKey() {
-	return '1';
+	return '4';
 /*	KEYPADPORT = PORTC;
 	unsigned char KEYPADPIN = PINC;
 	unsigned char ROW1 = 0;
