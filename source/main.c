@@ -10,6 +10,7 @@
 #include <avr/io.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
+//#include <keypad.h>
 #endif
 
 unsigned char SetBit(unsigned char pin, unsigned char number, unsigned char bin_value) 
@@ -22,9 +23,50 @@ unsigned char GetBit(unsigned char port, unsigned char number)
 	return ( port & (0x01 << number) );
 }
 
+unsigned char KEYPADPORT;
 
 unsigned char GetKeypadKey() {
-	PORTC = 0xEF;
+	KEYPADPORT = PORTC;
+	unsigned char KEYPADPIN = PINC;
+	unsigned char ROW1 = 0;
+	unsigned char ROW2 = 1;
+	unsigned char ROW3 = 2;
+	unsigned char ROW4 = 3;
+	unsigned char COL1 = 4;
+	unsigned char COL2 = 5;
+	unsigned char COL3 = 6;
+	unsigned char COL4 = 7;
+
+	KEYPADPORT = SetBit(0xFF,COL1,0); // Set Px4 to 0; others 1
+	asm("nop"); // add a delay to allow PORTx to stabilize before checking
+	if ( GetBit(~KEYPADPIN,ROW1) ) { return '1'; }
+	if ( GetBit(~KEYPADPIN,ROW2) ) { return '4'; }
+	if ( GetBit(~KEYPADPIN,ROW3) ) { return '7'; }
+	if ( GetBit(~KEYPADPIN,ROW4) ) { return '*'; }
+
+	KEYPADPORT = SetBit(0xFF,COL2,0); // Set Px5 to 0; others 1
+	asm("nop"); // add a delay to allow PORTx to stabilize before checking
+	if ( GetBit(~KEYPADPIN,ROW1) ) { return '2'; }
+	if ( GetBit(~KEYPADPIN,ROW2) ) { return '5'; }
+	if ( GetBit(~KEYPADPIN,ROW3) ) { return '8'; }
+	if ( GetBit(~KEYPADPIN,ROW4) ) { return '0'; }
+
+	KEYPADPORT = SetBit(0xFF,COL3,0); // Set Px6 to 0; others 1
+	asm("nop"); // add a delay to allow PORTx to stabilize before checking
+	if ( GetBit(~KEYPADPIN,ROW1) ) { return '3'; }
+	if ( GetBit(~KEYPADPIN,ROW2) ) { return '6'; }
+	if ( GetBit(~KEYPADPIN,ROW3) ) { return '9'; }
+	if ( GetBit(~KEYPADPIN,ROW4) ) { return '#'; }
+
+	KEYPADPORT = SetBit(0xFF,COL4,0); // Set Px7 to 0; others 1
+	asm("nop"); // add a delay to allow PORTx to stabilize before checking
+	if (GetBit(~KEYPADPIN,ROW1) ) { return 'A'; }
+	if (GetBit(~KEYPADPIN,ROW2) ) { return 'B'; }
+	if (GetBit(~KEYPADPIN,ROW3) ) { return 'C'; }
+	if (GetBit(~KEYPADPIN,ROW4) ) { return 'D'; }
+
+	return '\0';
+/*	PORTC = 0xEF;
 	asm("nop");
 	if (GetBit (PINC, 0) == 0) { return ('1'); }
 	if (GetBit (PINC, 1) == 0) { return ('4'); }
@@ -52,7 +94,7 @@ unsigned char GetKeypadKey() {
 	if (GetBit (PINC, 2) == 0) { return ('C'); }
 	if (GetBit (PINC, 3) == 0) { return ('D'); }
 
-	return ('\0');
+	return ('\0');*/
 }
 
 int main(void) {
