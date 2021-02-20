@@ -23,10 +23,10 @@ unsigned char GetBit(unsigned char port, unsigned char number)
 	return ( port & (0x01 << number) );
 }
 
-unsigned char KEYPADPORT;
+//unsigned char KEYPADPORT;
 
 unsigned char GetKeypadKey() {
-	return '2';
+	return '1';
 /*	KEYPADPORT = PORTC;
 	unsigned char KEYPADPIN = PINC;
 	unsigned char ROW1 = 0;
@@ -67,14 +67,14 @@ unsigned char GetKeypadKey() {
 	if (GetBit(~KEYPADPIN,ROW4) ) { return 'D'; }
 
 	return '\0';
-*/	
+	
 	PORTC = 0xEF;
 	asm("nop");
 	if (GetBit (PINC, 0) == 0) { return ('1'); }
 	if (GetBit (PINC, 1) == 0) { return ('4'); }
 	if (GetBit (PINC, 2) == 0) { return ('7'); }
 	if (GetBit (PINC, 3) == 0) { return ('*'); }
-/*
+
 	PORTC = 0xDF;
 	asm("nop");
 	if (GetBit (PINC, 0) == 0) { return ('2'); }
@@ -109,7 +109,7 @@ int main(void) {
 	    case '\0': PORTB = 0x1F; break;
  	    case '1': PORTB = 0x01; break;
             case '2': PORTB = 0x02; break;
-/*          case '3': PORTB = 0x03; break;
+	    case '3': PORTB = 0x03; break;
             case '4': PORTB = 0x04; break;
             case '5': PORTB = 0x05; break;
             case '6': PORTB = 0x06; break;
@@ -119,7 +119,7 @@ int main(void) {
        	    case 'A': PORTB = 0x0A; break;
        	    case 'B': PORTB = 0x0B; break;
       	    case 'C': PORTB = 0x0C; break;
-*/    	    case 'D': PORTB = 0x0D; break;
+     	    case 'D': PORTB = 0x0D; break;
             case '*': PORTB = 0x0E; break;
      	    case '0': PORTB = 0x00; break;
    	    case '#': PORTB = 0x0F; break;
