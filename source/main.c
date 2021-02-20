@@ -66,7 +66,8 @@ unsigned char GetKeypadKey() {
 	if (GetBit(~KEYPADPIN,ROW4) ) { return 'D'; }
 
 	return '\0';
-*/	PORTC = 0xEF;
+*/	return 2;
+	PORTC = 0xEF;
 	asm("nop");
 	if (GetBit (PINC, 0) == 0) { return ('1'); }
 	if (GetBit (PINC, 1) == 0) { return ('4'); }
