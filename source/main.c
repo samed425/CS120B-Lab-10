@@ -94,7 +94,7 @@ unsigned char GetKeypadKey() {
 	if (GetBit (PINC, 2) == 0) { return ('C'); }
 	if (GetBit (PINC, 3) == 0) { return ('D'); }
 */
-	return ('\0');
+	return '\0';
 }
 
 int main(void) {
