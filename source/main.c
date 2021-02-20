@@ -28,46 +28,46 @@ unsigned char KEYPADPORT;
 unsigned char GetKeypadKey() {
 	KEYPADPORT = PORTC;
 	unsigned char KEYPADPIN = PINC;
-	unsigned char ROW1 = 0;
+	/*unsigned char ROW1 = 0;
 	unsigned char ROW2 = 1;
 	unsigned char ROW3 = 2;
 	unsigned char ROW4 = 3;
 	unsigned char COL1 = 4;
 	unsigned char COL2 = 5;
 	unsigned char COL3 = 6;
-	unsigned char COL4 = 7;
+	unsigned char COL4 = 7; */
 
-	KEYPADPORT = SetBit(0xFF,COL1,0); // Set Px4 to 0; others 1
+	KEYPADPORT = SetBit(0xFF,4,0); // Set Px4 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if ( GetBit(~KEYPADPIN,ROW1) ) { return '1'; }
-	if ( GetBit(~KEYPADPIN,ROW2) ) { return '4'; }
-	if ( GetBit(~KEYPADPIN,ROW3) ) { return '7'; }
-	if ( GetBit(~KEYPADPIN,ROW4) ) { return '*'; }
+	if ( GetBit(~KEYPADPIN,0) ) { return '1'; }
+	if ( GetBit(~KEYPADPIN,1) ) { return '4'; }
+	if ( GetBit(~KEYPADPIN,2) ) { return '7'; }
+	if ( GetBit(~KEYPADPIN,3) ) { return '*'; }
 
-	KEYPADPORT = SetBit(0xFF,COL2,0); // Set Px5 to 0; others 1
+	KEYPADPORT = SetBit(0xFF,5,0); // Set Px5 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if ( GetBit(~KEYPADPIN,ROW1) ) { return '2'; }
-	if ( GetBit(~KEYPADPIN,ROW2) ) { return '5'; }
-	if ( GetBit(~KEYPADPIN,ROW3) ) { return '8'; }
-	if ( GetBit(~KEYPADPIN,ROW4) ) { return '0'; }
+	if ( GetBit(~KEYPADPIN,0) ) { return '2'; }
+	if ( GetBit(~KEYPADPIN,1) ) { return '5'; }
+	if ( GetBit(~KEYPADPIN,2) ) { return '8'; }
+	if ( GetBit(~KEYPADPIN,3) ) { return '0'; }
 
-	KEYPADPORT = SetBit(0xFF,COL3,0); // Set Px6 to 0; others 1
+	KEYPADPORT = SetBit(0xFF,6,0); // Set Px6 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if ( GetBit(~KEYPADPIN,ROW1) ) { return '3'; }
-	if ( GetBit(~KEYPADPIN,ROW2) ) { return '6'; }
-	if ( GetBit(~KEYPADPIN,ROW3) ) { return '9'; }
-	if ( GetBit(~KEYPADPIN,ROW4) ) { return '#'; }
+	if ( GetBit(~KEYPADPIN,0) ) { return '3'; }
+	if ( GetBit(~KEYPADPIN,1) ) { return '6'; }
+	if ( GetBit(~KEYPADPIN,2) ) { return '9'; }
+	if ( GetBit(~KEYPADPIN,3) ) { return '#'; }
 
-	KEYPADPORT = SetBit(0xFF,COL4,0); // Set Px7 to 0; others 1
+	KEYPADPORT = SetBit(0xFF,7,0); // Set Px7 to 0; others 1
 	asm("nop"); // add a delay to allow PORTx to stabilize before checking
-	if (GetBit(~KEYPADPIN,ROW1) ) { return 'A'; }
-	if (GetBit(~KEYPADPIN,ROW2) ) { return 'B'; }
-	if (GetBit(~KEYPADPIN,ROW3) ) { return 'C'; }
-	if (GetBit(~KEYPADPIN,ROW4) ) { return 'D'; }
+	if (GetBit(~KEYPADPIN,0) ) { return 'A'; }
+	if (GetBit(~KEYPADPIN,1) ) { return 'B'; }
+	if (GetBit(~KEYPADPIN,2) ) { return 'C'; }
+	if (GetBit(~KEYPADPIN,3) ) { return 'D'; }
 
 	return '\0';
 	
-	PORTC = 0xEF;
+/*	PORTC = 0xEF;
 	asm("nop");
 	if (GetBit (PINC, 0) == 0) { return ('1'); }
 	if (GetBit (PINC, 1) == 0) { return ('4'); }
@@ -95,7 +95,7 @@ unsigned char GetKeypadKey() {
 	if (GetBit (PINC, 2) == 0) { return ('C'); }
 	if (GetBit (PINC, 3) == 0) { return ('D'); }
 
-	return '\0';
+*/	return '\0';
 }
 
 int main(void) {
